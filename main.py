@@ -4,7 +4,7 @@ import sys, socket,threading,time
 PORT_HOST = sys.argv[3]
 PORT_DIST = sys.argv[2]
 IP_HOST = "0.0.0.0"
-IP_DIST = "192.168.1.98"
+IP_DIST = ""
 
 client_connect = False
 
@@ -22,7 +22,7 @@ def th_server():
     client_connect = True
 
     with conn:
-        print(f"Connected by {addr}")
+        print(f"Connected by {addr[0]}")
         while True:
             data = conn.recv(1024)
             print(data.decode())
@@ -49,6 +49,7 @@ if __name__ == '__main__':
         thread_server.start()
         print("(1) Server Started")
     if sys.argv[1] == "c":
+        IP_DIST = input("What is the IP DIST?")
         thread_client = threading.Thread(target=th_client,args=())
         thread_client.start()
         print("(1) Client Started")
